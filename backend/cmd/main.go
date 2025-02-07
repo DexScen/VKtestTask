@@ -6,7 +6,10 @@ import (
 	"time"
 
 	"github.com/DexScen/VKtestTask/backend/internal/repository/psql"
+	"github.com/DexScen/VKtestTask/backend/internal/service"
+	"github.com/DexScen/VKtestTask/backend/internal/transport/rest"
 	"github.com/DexScen/VKtestTask/backend/pkg/database"
+	
 	_ "github.com/lib/pq"
 )
 
