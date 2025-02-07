@@ -27,7 +27,7 @@ func NewHandler(containers Containers) *Handler {
 }
 
 func (h *Handler) InitRouter() *mux.Router {
-	r := mux.NewRouter()
+	r := mux.NewRouter().StrictSlash(true)
 	r.Use(loggingMiddleware)
 
 	links := r.PathPrefix("/containers").Subrouter()

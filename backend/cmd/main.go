@@ -3,25 +3,27 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/DexScen/VKtestTask/backend/internal/repository/psql"
 	"github.com/DexScen/VKtestTask/backend/internal/service"
 	"github.com/DexScen/VKtestTask/backend/internal/transport/rest"
 	"github.com/DexScen/VKtestTask/backend/pkg/database"
-	
+
 	_ "github.com/lib/pq"
 )
 
 func main() {
 	db, err := database.NewPostgresConnection(database.ConnectionInfo{
-		Host:     "localhost",
+		Host:     os.Getenv("DB_HOST"),
 		Port:     5432,
-		Username: "postgres",
-		DBName:   "postgres",
+		Username: os.Getenv("DB_USER"),
+		DBName:   os.Getenv("DB_NAME"),
 		SSLMode:  "disable",
-		Password: "qwerty123",
+		Password: os.Getenv("DB_PASSWORD"),
 	})
+
 	if err != nil {
 		log.Fatal(err)
 	}
