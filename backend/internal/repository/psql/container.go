@@ -1,5 +1,3 @@
-//Todo: add good errors from domain
-
 package psql
 
 import (
