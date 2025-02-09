@@ -19,6 +19,7 @@ services:
     depends_on:
       - postgres
     environment:
+      CORS_ALLOWED_ORIGINS: "*"
       DB_HOST: postgres 
       DB_PORT: 5432
       DB_USER: postgres
@@ -38,6 +39,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8081:8081"
+
+  frontend:
+    build: ./frontend
+    container_name: my_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_BACKEND_URL=http://backend:8080
 
 volumes:
   postgres_data:

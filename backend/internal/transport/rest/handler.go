@@ -52,8 +52,14 @@ func (h *Handler) GetContainers(w http.ResponseWriter, r *http.Request) {
 		log.Println("getContainers error:", err)
 		return
 	} else {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
 		w.Write(jsonResp)
 	}
 }

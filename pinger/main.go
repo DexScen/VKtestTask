@@ -71,6 +71,7 @@ func getContainerIPs() ([]string, error) {
 
 // Initial containers info collection
 func init() {
+	waitForBackend()
 	ips, err := getContainerIPs()
 	if err != nil {
 		log.Println("Couldn't get container ips")
@@ -85,8 +86,6 @@ func init() {
 		}
 		list = append(list, c)
 	}
-
-	waitForBackend()
 
 	url := "http://backend:8080/containers"
 	jsonData, err := json.Marshal(list)
@@ -175,7 +174,7 @@ func main() {
 		for i := range containers {
 			timeSync := time.Now()
 			containers[i].PingTime = timeSync
-			if isReachable(containers[i].IP, "8080") || isReachable(containers[i].IP, "5432") || isReachable(containers[i].IP, "8081") {
+			if isReachable(containers[i].IP, "8080") || isReachable(containers[i].IP, "5432") || isReachable(containers[i].IP, "8081") || isReachable(containers[i].IP, "3000") || isReachable(containers[i].IP, "80") {
 				log.Println("pinger: container available with ip:", containers[i].IP)
 				containers[i].SuccessDate = timeSync
 			} else {
